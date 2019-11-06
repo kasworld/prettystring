@@ -25,6 +25,7 @@ func writeIndent(buf *bytes.Buffer, n int) {
 	}
 }
 
+// PrettyString make struct to detailed string like python prettyprint
 func PrettyString(inObj interface{}, depthLimit int) string {
 	var buf bytes.Buffer
 	formObj(&buf, reflect.ValueOf(inObj), 0, depthLimit)
@@ -33,7 +34,7 @@ func PrettyString(inObj interface{}, depthLimit int) string {
 
 func formObj(buf *bytes.Buffer, objVal reflect.Value, depth int, depthLimit int) {
 	if depth > depthLimit {
-		fmt.Fprintf(buf, "%v %v simple", objVal.Type(), objVal)
+		fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
 		return
 	}
 	switch objVal.Kind() {
@@ -90,7 +91,16 @@ func formObj(buf *bytes.Buffer, objVal reflect.Value, depth int, depthLimit int)
 		for i := 0; i < objVal.NumField(); i++ {
 			structTypeField := objVal.Type().Field(i)
 			if tag, exist := structTypeField.Tag.Lookup("prettystring"); exist {
-				if tag == "hide" {
+				switch tag {
+				default:
+					writeIndent(buf, depth+1)
+					fmt.Fprintf(buf, "%v %v %v unknowntag %v", structTypeField.Name, structTypeField.Type, objVal.Field(i), tag)
+					continue
+				case "hide":
+					continue
+				case "simple":
+					writeIndent(buf, depth+1)
+					fmt.Fprintf(buf, "%v %v %v", structTypeField.Name, structTypeField.Type, objVal.Field(i))
 					continue
 				}
 			}

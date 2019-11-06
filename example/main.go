@@ -30,7 +30,8 @@ type TestStruct struct {
 	fieldMap     map[int]string
 	fieldPtr     *TestStruct
 	fieldFn      func()
-	fieldHidden  int `prettystring:"hide"`
+	fieldHidden  int        `prettystring:"hide"`
+	fieldSimple  [14]string `prettystring:"simple"`
 }
 
 func newStruct() *TestStruct {
