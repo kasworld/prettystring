@@ -18,20 +18,21 @@ import (
 )
 
 type TestStruct struct {
-	fieldInt     int
-	fieldComplex complex128
-	fieldUint    uint
-	fieldFloat   float64
-	fieldString  string
-	fieldBool    bool
-	fieldChan    chan interface{}
-	fieldArray   [14]string
-	fieldSlice   []int
-	fieldMap     map[int]string
-	fieldPtr     *TestStruct
-	fieldFn      func()
-	fieldHidden  int        `prettystring:"hide"`
-	fieldSimple  [14]string `prettystring:"simple"`
+	fieldInt       int
+	fieldComplex   complex128
+	fieldUint      uint
+	fieldFloat     float64
+	fieldString    string
+	fieldBool      bool
+	fieldChan      chan interface{}
+	fieldArray     [14]string
+	fieldSlice     []int
+	fieldMap       map[int]string
+	fieldPtr       *TestStruct
+	fieldFn        func()
+	fieldInterface interface{}
+	fieldHidden    int        `prettystring:"hide"`
+	fieldSimple    [14]string `prettystring:"simple"`
 }
 
 func newStruct() *TestStruct {
@@ -57,5 +58,6 @@ func newStruct() *TestStruct {
 func main() {
 	tw := newStruct()
 	tw.fieldPtr = newStruct()
+	tw.fieldInterface = newStruct()
 	fmt.Println(prettystring.PrettyString(tw, 4))
 }

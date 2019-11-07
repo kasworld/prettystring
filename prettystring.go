@@ -56,6 +56,10 @@ func formObj(buf *bytes.Buffer, objVal reflect.Value, depth int, depthLimit int)
 		fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
 	case reflect.Interface:
 		fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
+		if !objVal.IsNil() {
+			writeIndent(buf, depth+1)
+			formObj(buf, objVal.Elem(), depth+1, depthLimit)
+		}
 	case reflect.Ptr:
 		fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
 		if !objVal.IsNil() {
