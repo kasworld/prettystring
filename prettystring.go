@@ -29,6 +29,7 @@ func writeIndent(buf *bytes.Buffer, n int) {
 func PrettyString(inObj interface{}, depthLimit int) string {
 	var buf bytes.Buffer
 	formObj(&buf, reflect.ValueOf(inObj), 0, depthLimit)
+	buf.WriteString("\n")
 	return buf.String()
 }
 

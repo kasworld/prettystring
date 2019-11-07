@@ -29,10 +29,10 @@ type TestStruct struct {
 	fieldSlice     []int
 	fieldMap       map[int]string
 	fieldPtr       *TestStruct
-	fieldFn        func()
 	fieldInterface interface{}
 	fieldHidden    int        `prettystring:"hide"`
 	fieldSimple    [14]string `prettystring:"simple"`
+	fieldFn        func()
 }
 
 func newStruct() *TestStruct {
