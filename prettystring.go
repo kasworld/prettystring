@@ -103,6 +103,10 @@ func formObj(buf *bytes.Buffer, objVal reflect.Value, depth int, depthLimit int)
 					continue
 				case "hide":
 					continue
+				case "hidevalue":
+					writeIndent(buf, depth+1)
+					fmt.Fprintf(buf, "%v %v ****", structTypeField.Name, structTypeField.Type)
+					continue
 				case "simple":
 					writeIndent(buf, depth+1)
 					fmt.Fprintf(buf, "%v %v %v", structTypeField.Name, structTypeField.Type, objVal.Field(i))
