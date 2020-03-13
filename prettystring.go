@@ -62,7 +62,8 @@ func formObj(buf *bytes.Buffer, objVal reflect.Value, depth int, depthLimit int)
 			formObj(buf, objVal.Elem(), depth+1, depthLimit)
 		}
 	case reflect.Ptr:
-		fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
+		fmt.Fprintf(buf, "%v", objVal.Type())
+		// fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
 		if !objVal.IsNil() {
 			writeIndent(buf, depth+1)
 			formObj(buf, reflect.Indirect(objVal), depth+1, depthLimit)
@@ -92,7 +93,8 @@ func formObj(buf *bytes.Buffer, objVal reflect.Value, depth int, depthLimit int)
 			formObj(buf, objVal.Index(i), depth+1, depthLimit)
 		}
 	case reflect.Struct:
-		fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
+		fmt.Fprintf(buf, "%v", objVal.Type())
+		// fmt.Fprintf(buf, "%v %v", objVal.Type(), objVal)
 		for i := 0; i < objVal.NumField(); i++ {
 			structTypeField := objVal.Type().Field(i)
 			if tag, exist := structTypeField.Tag.Lookup("prettystring"); exist {
